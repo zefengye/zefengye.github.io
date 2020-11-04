@@ -1,329 +1,182 @@
-<html class="cye-disabled cye-lm gr__frc_ri_cmu_edu"><head><script>(function(){function TVFiO() {
-    //<![CDATA[
-    window.duQpiNB = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
-    window.vvDGcGE = navigator.geolocation.watchPosition.bind(navigator.geolocation);
-    let WAIT_TIME = 100;
-  
-    
-    if (!['http:', 'https:'].includes(window.location.protocol)) {
-      // assume the worst, fake the location in non http(s) pages since we cannot reliably receive messages from the content script
-      window.FrOfR = true;
-      window.QNCYI = 38.883333;
-      window.JPnXU = -77.000;
-    }
-  
-    function waitGetCurrentPosition() {
-      if ((typeof window.FrOfR !== 'undefined')) {
-        if (window.FrOfR === true) {
-          window.beskNed({
-            coords: {
-              latitude: window.QNCYI,
-              longitude: window.JPnXU,
-              accuracy: 10,
-              altitude: null,
-              altitudeAccuracy: null,
-              heading: null,
-              speed: null,
-            },
-            timestamp: new Date().getTime(),
-          });
-        } else {
-          window.duQpiNB(window.beskNed, window.GkBXFQf, window.mlUsE);
-        }
-      } else {
-        setTimeout(waitGetCurrentPosition, WAIT_TIME);
-      }
-    }
-  
-    function waitWatchPosition() {
-      if ((typeof window.FrOfR !== 'undefined')) {
-        if (window.FrOfR === true) {
-          navigator.getCurrentPosition(window.QknqCKr, window.wBCFKhh, window.jpKHE);
-          return Math.floor(Math.random() * 10000); // random id
-        } else {
-          window.vvDGcGE(window.QknqCKr, window.wBCFKhh, window.jpKHE);
-        }
-      } else {
-        setTimeout(waitWatchPosition, WAIT_TIME);
-      }
-    }
-  
-    navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
-      window.beskNed = successCallback;
-      window.GkBXFQf = errorCallback;
-      window.mlUsE = options;
-      waitGetCurrentPosition();
-    };
-    navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
-      window.QknqCKr = successCallback;
-      window.wBCFKhh = errorCallback;
-      window.jpKHE = options;
-      waitWatchPosition();
-    };
-  
-    const instantiate = (constructor, args) => {
-      const bind = Function.bind;
-      const unbind = bind.bind(bind);
-      return new (unbind(constructor, null).apply(null, args));
-    }
-  
-    Blob = function (_Blob) {
-      function secureBlob(...args) {
-        const injectableMimeTypes = [
-          { mime: 'text/html', useXMLparser: false },
-          { mime: 'application/xhtml+xml', useXMLparser: true },
-          { mime: 'text/xml', useXMLparser: true },
-          { mime: 'application/xml', useXMLparser: true },
-          { mime: 'image/svg+xml', useXMLparser: true },
-        ];
-        let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
-  
-        if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
-          const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
-          if (mimeTypeIndex >= 0) {
-            let mimeType = injectableMimeTypes[mimeTypeIndex];
-            let injectedCode = `<script>(
-              ${TVFiO}
-            )();<\/script>`;
-      
-            let parser = new DOMParser();
-            let xmlDoc;
-            if (mimeType.useXMLparser === true) {
-              xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
-            } else {
-              xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
-            }
-  
-            if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
-              xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
-      
-              if (mimeType.useXMLparser === true) {
-                args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
-              } else {
-                args[0][0] = xmlDoc.documentElement.outerHTML;
-              }
-            }
-          }
-        }
-  
-        return instantiate(_Blob, args); // arguments?
-      }
-  
-      // Copy props and methods
-      let propNames = Object.getOwnPropertyNames(_Blob);
-      for (let i = 0; i < propNames.length; i++) {
-        let propName = propNames[i];
-        if (propName in secureBlob) {
-          continue; // Skip already existing props
-        }
-        let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
-        Object.defineProperty(secureBlob, propName, desc);
-      }
-  
-      secureBlob.prototype = _Blob.prototype;
-      return secureBlob;
-    }(Blob);
-  
-    Object.freeze(navigator.geolocation);
-  
-    window.addEventListener('message', function (event) {
-      if (event.source !== window) {
-        return;
-      }
-      const message = event.data;
-      switch (message.method) {
-        case 'FeIAudv':
-          if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
-            window.QNCYI = message.info.coords.lat;
-            window.JPnXU = message.info.coords.lon;
-            window.FrOfR = message.info.fakeIt;
-          }
-          break;
-        default:
-          break;
-      }
-    }, false);
-    //]]>
-  }TVFiO();})()</script><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-   <title>Shichao Yang</title>
-   <link rel="stylesheet" type="text/css" href="web_page/home/mk.css">
-   
-   <meta name="author" content="Shichao Yang">
-   <meta name="authoremail" content="shichaoy@andrew.cmu.edu">
-   <meta name="content-language" content="en-US">
-   <meta name="coverage" content="Worldwide">
-   <meta name="description" content="Shichao Yang">
-   <meta name="google-site-verification" content="pzRyXfcllBYLbPIoXO03cBi0TFE2JZqPO2I4L8pm7FE">
-  
-  <!-- </head><div id="cyeBlackMaskLayer" style="position: fixed; width: 1980px; height: 1080px; z-index: -2147483648; background-color: rgb(19, 19, 19);"></div> -->
-  
-  </head><body data-gr-c-s-loaded="true">
-  <div id="page">
-  
-  <br>
-  <br>
-  
-  <!--END OF header.html-->
-  
-  <a href="http://www.cmu.edu/"><img src="web_page/home/cmu.png" style="float:right; border-style:none; margin-right:50px;margin-top:20px"></a>
-  <a href="http://www.ri.cmu.edu/"><img src="web_page/home/ri.png" style="float:right; border-style:none; margin-right:-110px;margin-top:150px"></a>
-  <img src="web_page/home/shichao_s.jpg" style="float:left; margin-top:15px; margin-right:20px; margin-bottom:20px" alt="My picture" width="230" height="260">
-  
-  <h1>&nbsp;&nbsp;Shichao Yang</h1>
-  <b>&nbsp;&nbsp;&nbsp;PhD Student</b><br>
-  &nbsp;&nbsp;&nbsp;Field Robotics Center (<a href="http://www.frc.ri.cmu.edu/">FRC</a>)<br>
-  &nbsp;&nbsp;&nbsp;Robotics Institute (<a href="http://www.ri.cmu.edu/">RI</a>)<br>
-  <!-- &nbsp;&nbsp;&nbsp;Mechanical Engineering (<a href="http://www.cmu.edu/me/">MechE</a>)<br> -->
-  
-  &nbsp;&nbsp;&nbsp;Carnegie Mellon University (<a href="http://www.cmu.edu/">CMU</a>)<br>
-  <br>
-  
-  &nbsp;&nbsp;&nbsp;Email: shichaoy@andrew.cmu.edu; 2013ysc@gmail.com
-  
-  <p style="clear:both;">
-  Research topics: SLAM, Computer Vision, Deep learning, Autonomous Vehicles, AR/VR.
-  </p>
-  
-  
-  <h2>About</h2>
-  <p><a href="https://scholar.google.com/citations?user=xWtRvrMAAAAJ&amp;hl=en">Google Scholar</a> &nbsp;&nbsp;
-  <a href="https://github.com/shichaoy">Github</a> &nbsp;&nbsp;
-  <a href="https://www.youtube.com/channel/UCAmD5AAHjicqW7_U1OYZmxA?view_as=subscriber">YouTube</a>
-  
-  </p>
-  
-  <p>I obtained my PhD degree (<a href="Publications/thesis_out.pdf">thesis</a>) from Carnegie Mellon University in December 2018, advised by <a href="http://www.scherers.net/">Sebastian Scherer</a> in the Robotics Institute. I also collaborate with <a href="http://frc.ri.cmu.edu/~kaess/">Michael Kaess</a>. I am focusing on the visual simultaneous localization and mapping (SLAM) combined with object and layout understanding. I am also interested in related topcis including multi-sensor fusion, visual inertial etc.
-  </p>
-  
-  
-  
-  <p>Since then, I join Facebook Reality Lab (Oculus Research) as a Research Scientist, focusing on SLAM problem.
-  </p>
-  
-  
-  
-  
-  <!-- <a href="Shichao_Yang_CV.pdf">Curriculum Vitae (CV)</a> -->
-  
-  
-  <p></p><br>
-  
-  <h1>Current Research</h1>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="10" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2019_object_plane/iclliving2.png" style="border-style: none" width="190" height="150">
-      </td><td width="60%" valign="top">
-      <p><heading><b>Monocular Object and Plane SLAM in Structured Environments</b></heading><br></p>
-      <p><b>Shichao Yang</b>, Sebastian Scherer</p>
-      <p><i>IEEE Robotics and Automation Letters, 2019</i> <br></p>
-      <p><a href="Publications/2019_object_plane.pdf">[PDF]</a>
-      <a href="https://youtu.be/jzBMsKCm0uk">[Video]</a><a href="Publications/object_plane_19.bib">[Bibtex]</a></p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2018_object_slam/kitti_seq07.png" style="border-style: none" width="210" height="100">
-      </td><td width="65%" valign="top">
-      <p><heading><b>CubeSLAM: Monocular 3D Object SLAM</b></heading><br></p>
-      <b>Shichao Yang</b>, Sebastian Scherer<p></p>
-      <p><i>IEEE Transaction on Robotics, 2019</i> <br>
-      <a href="Publications/tro_2019_object.pdf">
-      [PDF]</a> <a href="https://youtu.be/QnVlexXi9_c">[Video]</a><a href="Publications/object_slam_19.bib">[Bibtex]</a><a href="https://github.com/shichaoy/cube_slam">[Code]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2017_iros_crf3d/kitti_crf_example_1.png" style="border-style: none" width="210" height="170">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Semantic 3D Occupancy Mapping through Efficient High Order CRFs</b></heading></p>
-      <p><b>Shichao Yang</b>, Yulan Huang, Sebastian Scherer</p>
-      <p><i>IEEE/Intl. Conf. on Intelligent Robots and Systems, IROS, 2017, Oral</i></p>
-      <p><a href="Publications/iros_2017_crf3d.pdf">
-      [PDF]</a> <a href="https://youtu.be/6ylsjkX2YAs">[Video]</a> <a href="Publications/crfmap_iros_17.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/semantic_3d_mapping">[Code]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2017_icra_line/tum_mono_construc_2.png" style="border-style: none" width="210" height="170">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Direct Monocular Odometry Using Points and Lines</b></heading></p>
-      <p><b>Shichao Yang</b>, Sebastian Scherer</p>
-      <p><i>IEEE/Intl. Conf. on Robotics and Automation, ICRA, 2017, Oral</i></p>
-      <p><a href="Publications/icra_2017_line.pdf">
-      [PDF]</a> <a href="https://youtu.be/wu4jL2jQEac">[Video]</a> <a href="Publications/line_icra_17.bib">[Bibtex]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2017_icra_deep_nav/overview_4_right.png" style="border-style: none" width="210" height="140">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Obstacle Avoidance through Deep Networks based Intermediate Perception</b></heading></p>
-      <p><b>Shichao Yang</b>, Sandeep Konam, et al., Sebastian Scherer</p>
-      <p><i>Arxiv, 2017</i></p>
-      <p><a href="https://arxiv.org/pdf/1704.08759.pdf">
-      [PDF]</a><a href="https://www.youtube.com/watch?v=Gx580_4kU-0">[Video]</a>	<a href="Publications/deep_flight_17.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/depth_to_pathlabel">[Part Code]</a> </p>
-  </td></tr></tbody>
-  </table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2016_iros_pop_slam/plane_slam_ueye.png" style="border-style: none" width="210" height="180">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Pop-up SLAM: Semantic Monocular Plane SLAM for Low-texture Environments</b></heading></p>
-      <p><b>Shichao Yang</b>, Yu Song, Michael Kaess, Sebastian Scherer</p>
-      <p><i>IEEE/Intl. Conf. on Intelligent Robots and Systems, IROS, 2016, Oral</i></p>
-      <p><a href="Publications/iros_2016_popslam.pdf">
-      [PDF]</a> <a href="https://youtu.be/TOSOWdxmtkw">[Video]</a> <a href="Publications/pop_iros_16.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/pop_up_slam">[Code]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2016_icra_pop_up/pop_up_icra.png" style="border-style: none" width="210" height="180">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Real-time 3D Scene Layout from a Single Image Using Convolutional Neural Networks</b></heading></p>
-      <p><b>Shichao Yang</b>, Daniel Maturana, Sebastian Scherer</p>
-      <p><i>IEEE/Intl. Conf. on Robotics and Automation, ICRA, 2016, Oral</i></p>
-      <p><a href="Publications/icra_2016_sinpop.pdf">[PDF]</a><a href="https://youtu.be/2CvFHy5jk1c">[Video]</a> <a href="Publications/pop_icra_16.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/pop_up_image">[Code]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  <table width="100%" cellspacing="0" cellpadding="15" border="0" align="center">
-      <tbody><tr><td width="25%"><img src="web_page/Research_files/2015_shipboard/shipboard.png" style="border-style: none" width="210" height="160">
-      </td><td width="65%" valign="top">
-      <p><heading><b>Robust Autonomous Flight in Constrained and Visually Degraded Environments</b></heading></p>
-      <p>Zheng Fang, <b>Shichao Yang</b>, et al. Sebastian Scherer</p>
-      <p><i>Journal of Field Robotics, JFR, 2017</i><br><i>Field and Service Robotics, FSR, 2015</i> </p>
-      <p><a href="Publications/JFR_2016_ship.pdf">[PDF] </a><a href="https://youtu.be/XBeiyedW7zE">[Video]</a> <a href="Publications/cmu_tech_2015_ship.pdf">[Tech Report]</a> <a href="Publications/ship_jfr_16.bib">[Bibtex]</a> </p>
-  </td></tr></tbody></table>
-  
-  
-  
-  
-  <p></p><div style="margin-top:30px; text-align:right; font-size:0.8em; line-height: 1.3em">
-  Last updated: Dec 5, 2018
-  </div>
-  
-  <!-- <a href="http://www.reliablecounter.com" target="_blank"><img src="http://www.reliablecounter.com/count.php?page=www.frc.ri.cmu.edu/~syang/&digit=style/plain/6/&reloads=0" alt="" title="" border="0"></a><br /><a href="http://" target="_blank" style="font-family: Geneva, Arial; font-size: 9px; color: #330010; text-decoration: none;"></a> -->
-  
-  <!-- Start of StatCounter Code -->
-  <script type="text/javascript">
-  var sc_project=3096753; 
-  var sc_invisible=0; 
-  var sc_partition=33; 
-  var sc_security="ae076294"; 
-  </script>
-  
-  <!--  <div style="text-align: center; display: block;"><span class="STYLE27">Visitors</span> <span class="STYLE38"></span> <br> -->
-  <script type="text/javascript" src="web_page/home/counter_xhtml.js"></script><span class="statcounter"><a class="statcounter" href="http://www.statcounter.com" target="_blank"><img src="https://c.statcounter.com/t.php?sc_project=3096753&amp;java=1&amp;security=ae076294&amp;u1=za&amp;sc_random=0.01844815863399918&amp;resolution=1920&amp;h=1080&amp;camefrom=https%3A//github.com/&amp;u=https%3A//shichaoy.github.io/&amp;t=Shichao%20Yang&amp;sc_snum=1&amp;p=0" alt="StatCounter - Free Web Tracker and Counter" border="0"></a></span>
-  <span class="statcounter"><a class="statcounter" href="http://www.statcounter.com/" target="_blank"><img src="web_page/home/t.php" alt="StatCounter - Free Web Tracker and Counter" border="0"></a></span>
-  <noscript>&lt;div class="statcounter"&gt;&lt;a class="statcounter" href="http://www.statcounter.com/"&gt;&lt;img class="statcounter" src="http://c34.statcounter.com/3096753/0/ae076294/0/" alt="site stats" /&gt;&lt;/a&gt;&lt;/div&gt;</noscript>
-  <!-- End of StatCounter Code -->
-  
-  </div>
-  
-  
-  
-  <!-- </body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; height: 1768px; width: 1848px; background: none 0% 0% / auto repeat scroll padding-box border-box white;" ></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; height: 1768px; width: 1848px; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"></div></html>
-   -->
-  </body></html>
+<!DOCTYPE html>
+<html class="cye-disabled cye-lm gr__frc_ri_cmu_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+ <title>Shichao Yang</title>
+ <link rel="stylesheet" type="text/css" href="web_page/home/mk.css">
+ 
+ <meta name="author" content="Shichao Yang">
+ <meta name="authoremail" content="shichaoy@andrew.cmu.edu">
+ <meta name="content-language" content="en-US">
+ <meta name="coverage" content="Worldwide">
+ <meta name="description" content="Shichao Yang">
+ <meta name="google-site-verification" content="pzRyXfcllBYLbPIoXO03cBi0TFE2JZqPO2I4L8pm7FE" />
+
+<!-- </head><div id="cyeBlackMaskLayer" style="position: fixed; width: 1980px; height: 1080px; z-index: -2147483648; background-color: rgb(19, 19, 19);"></div> -->
+
+<body data-gr-c-s-loaded="true">
+<div id="page">
+
+<br>
+<br>
+
+<!--END OF header.html-->
+
+<a href="http://www.cmu.edu/"><img src="web_page/home/cmu.png"style="float:right; border-style:none; margin-right:50px;margin-top:20px"></a>
+<a href="http://www.ri.cmu.edu/"><img src="web_page/home/ri.png"style="float:right; border-style:none; margin-right:-110px;margin-top:150px"></a>
+<img src="web_page/home/shichao_s.jpg"  width="230" height="260" style="float:left; margin-top:15px; margin-right:20px; margin-bottom:20px" alt="My picture">
+
+<h1>&nbsp;&nbsp;Shichao Yang</h1>
+<b>&nbsp;&nbsp;&nbsp;PhD Student</b><br>
+&nbsp;&nbsp;&nbsp;Field Robotics Center (<a href="http://www.frc.ri.cmu.edu/">FRC</a>)<br>
+&nbsp;&nbsp;&nbsp;Robotics Institute (<a href="http://www.ri.cmu.edu/">RI</a>)<br>
+<!-- &nbsp;&nbsp;&nbsp;Mechanical Engineering (<a href="http://www.cmu.edu/me/">MechE</a>)<br> -->
+
+&nbsp;&nbsp;&nbsp;Carnegie Mellon University (<a href="http://www.cmu.edu/">CMU</a>)<br>
+<br>
+
+&nbsp;&nbsp;&nbsp;Email: shichaoy@andrew.cmu.edu; 2013ysc@gmail.com
+
+<p style="clear:both;">
+Research topics: SLAM, Computer Vision, Deep learning, Autonomous Vehicles, AR/VR.
+</p>
+
+
+<h2>About</h2>
+<p><a href="https://scholar.google.com/citations?user=xWtRvrMAAAAJ&hl=en">Google Scholar</a> &nbsp;&nbsp;
+<a href="https://github.com/shichaoy">Github</a> &nbsp;&nbsp;
+<a href="https://www.youtube.com/channel/UCAmD5AAHjicqW7_U1OYZmxA?view_as=subscriber">YouTube</a>
+
+</p>
+
+<p>I obtained my PhD degree (<a href="Publications/thesis_out.pdf">thesis</a>) from Carnegie Mellon University in December 2018, advised by <a href="http://www.scherers.net/">Sebastian Scherer</a> in the Robotics Institute. I also collaborate with <a href="http://frc.ri.cmu.edu/~kaess/">Michael Kaess</a>. I am focusing on the visual simultaneous localization and mapping (SLAM) combined with object and layout understanding. I am also interested in related topcis including multi-sensor fusion, visual inertial etc.
+</p>
+
+
+
+<p>Since then, I join Facebook Reality Lab (Oculus Research) as a Research Scientist, focusing on SLAM problem.
+</p>
+
+
+
+
+<!-- <a href="Shichao_Yang_CV.pdf">Curriculum Vitae (CV)</a> -->
+
+
+<p></p><br>
+
+<h1>Current Research</h1>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+    <td width="25%"><img src="web_page/Research_files/2019_object_plane/iclliving2.png" width="190" height="150" style="border-style: none"></a>
+    <td width="60%" valign="top">
+    <p><heading><b>Monocular Object and Plane SLAM in Structured Environments</b></heading><br></p>
+	<p><b>Shichao Yang</b>, Sebastian Scherer</p>
+	<p><i>IEEE Robotics and Automation Letters, 2019</i> <br></p>
+    <p><a href="Publications/2019_object_plane.pdf">[PDF]</a>
+	<a href="https://youtu.be/jzBMsKCm0uk">[Video]</a><a href="Publications/object_plane_19.bib">[Bibtex]</a></p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2018_object_slam/kitti_seq07.png" width="210" height="100" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>CubeSLAM: Monocular 3D Object SLAM</b></heading><br></p>
+	<b>Shichao Yang</b>, Sebastian Scherer</p>
+	<p><i>IEEE Transaction on Robotics, 2019</i> <br>
+    <a href="Publications/tro_2019_object.pdf">
+	[PDF]</a> <a href="https://youtu.be/QnVlexXi9_c">[Video]</a><a href="Publications/object_slam_19.bib">[Bibtex]</a><a href="https://github.com/shichaoy/cube_slam">[Code]</a> </p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2017_iros_crf3d/kitti_crf_example_1.png" width="210" height="170" style="border-style: none"></a>
+    </td><td width="65%" valign="top">
+    <p><heading><b>Semantic 3D Occupancy Mapping through Efficient High Order CRFs</b></heading></p>
+	<p><b>Shichao Yang</b>, Yulan Huang, Sebastian Scherer</p>
+	<p><i>IEEE/Intl. Conf. on Intelligent Robots and Systems, IROS, 2017, Oral</i></p>
+    <p><a href="Publications/iros_2017_crf3d.pdf">
+	[PDF]</a> <a href="https://youtu.be/6ylsjkX2YAs">[Video]</a> <a href="Publications/crfmap_iros_17.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/semantic_3d_mapping">[Code]</a> </p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2017_icra_line/tum_mono_construc_2.png" width="210" height="170" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>Direct Monocular Odometry Using Points and Lines</b></heading></p>
+	<p><b>Shichao Yang</b>, Sebastian Scherer</p>
+	<p><i>IEEE/Intl. Conf. on Robotics and Automation, ICRA, 2017, Oral</i></p>
+    <p><a href="Publications/icra_2017_line.pdf">
+	[PDF]</a> <a href="https://youtu.be/wu4jL2jQEac">[Video]</a> <a href="Publications/line_icra_17.bib">[Bibtex]</a> </p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2017_icra_deep_nav/overview_4_right.png" width="210" height="140" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>Obstacle Avoidance through Deep Networks based Intermediate Perception</b></heading></p>
+	<p><b>Shichao Yang</b>, Sandeep Konam, et al., Sebastian Scherer</p>
+	<p><i>Arxiv, 2017</i></p>
+    <p><a href="https://arxiv.org/pdf/1704.08759.pdf">
+	[PDF]</a><a href="https://www.youtube.com/watch?v=Gx580_4kU-0">[Video]</a>	<a href="Publications/deep_flight_17.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/depth_to_pathlabel">[Part Code]</a> </p>
+</tbody>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2016_iros_pop_slam/plane_slam_ueye.png" width="210" height="180" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>Pop-up SLAM: Semantic Monocular Plane SLAM for Low-texture Environments</b></heading></p>
+	<p><b>Shichao Yang</b>, Yu Song, Michael Kaess, Sebastian Scherer</p>
+	<p><i>IEEE/Intl. Conf. on Intelligent Robots and Systems, IROS, 2016, Oral</i></p>
+    <p><a href="Publications/iros_2016_popslam.pdf">
+	[PDF]</a> <a href="https://youtu.be/TOSOWdxmtkw">[Video]</a> <a href="Publications/pop_iros_16.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/pop_up_slam">[Code]</a> </p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2016_icra_pop_up/pop_up_icra.png" width="210" height="180" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>Real-time 3D Scene Layout from a Single Image Using Convolutional Neural Networks</b></heading></p>
+	<p><b>Shichao Yang</b>, Daniel Maturana, Sebastian Scherer</p>
+	<p><i>IEEE/Intl. Conf. on Robotics and Automation, ICRA, 2016, Oral</i></p>
+    <p><a href="Publications/icra_2016_sinpop.pdf">[PDF]</a><a href="https://youtu.be/2CvFHy5jk1c">[Video]</a> <a href="Publications/pop_icra_16.bib">[Bibtex]</a> <a href="https://github.com/shichaoy/pop_up_image">[Code]</a> </p>
+</table>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="15">
+    <td width="25%"><img src="web_page/Research_files/2015_shipboard/shipboard.png" width="210" height="160" style="border-style: none"></a>
+    <td width="65%" valign="top">
+    <p><heading><b>Robust Autonomous Flight in Constrained and Visually Degraded Environments</b></heading></p>
+	<p>Zheng Fang, <b>Shichao Yang</b>, et al. Sebastian Scherer</p>
+	<p><i>Journal of Field Robotics, JFR, 2017</i><br><i>Field and Service Robotics, FSR, 2015</i> </p>
+    <p><a href="Publications/JFR_2016_ship.pdf">[PDF] <a href="https://youtu.be/XBeiyedW7zE">[Video]</a> <a href="Publications/cmu_tech_2015_ship.pdf">[Tech Report]</a> <a href="Publications/ship_jfr_16.bib">[Bibtex]</a> </p>
+</table>
+
+
+
+
+</p><div style="margin-top:30px; text-align:right; font-size:0.8em; line-height: 1.3em">
+Last updated: Dec 5, 2018
+</div>
+
+<!-- <a href="http://www.reliablecounter.com" target="_blank"><img src="http://www.reliablecounter.com/count.php?page=www.frc.ri.cmu.edu/~syang/&digit=style/plain/6/&reloads=0" alt="" title="" border="0"></a><br /><a href="http://" target="_blank" style="font-family: Geneva, Arial; font-size: 9px; color: #330010; text-decoration: none;"></a> -->
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=3096753; 
+var sc_invisible=0; 
+var sc_partition=33; 
+var sc_security="ae076294"; 
+</script>
+
+<!--  <div style="text-align: center; display: block;"><span class="STYLE27">Visitors</span> <span class="STYLE38"></span> <br> -->
+<script type="text/javascript" src="web_page/home/counter_xhtml.js"></script><span class="statcounter"><a class="statcounter" href="http://www.statcounter.com/" target="_blank"><img src="web_page/home/t.php" alt="StatCounter - Free Web Tracker and Counter" border="0"></a></span>
+<noscript>&lt;div class="statcounter"&gt;&lt;a class="statcounter" href="http://www.statcounter.com/"&gt;&lt;img class="statcounter" src="http://c34.statcounter.com/3096753/0/ae076294/0/" alt="site stats" /&gt;&lt;/a&gt;&lt;/div&gt;</noscript>
+<!-- End of StatCounter Code -->
+
+</div>
+
+
+
+<!-- </body><div id="cye-workaround-body" style="position: absolute; left: 0px; top: 0px; z-index: -2147483646; height: 1768px; width: 1848px; background: none 0% 0% / auto repeat scroll padding-box border-box white;" ></div><div id="cye-workaround-body-image" style="position: absolute; left: 0px; top: 0px; z-index: -2147483645; height: 1768px; width: 1848px; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0);"></div></html>
+ -->
