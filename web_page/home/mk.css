@@ -15,7 +15,7 @@ body {
 
 #page {
   text-align:left;
-  max-width: 55em;
+  max-width: 80em;
   margin: auto;
   background: white;
   font-family: Georgia,Serif;
@@ -24,7 +24,7 @@ body {
   width:expression( // more Internet Explorer disaster
       document.body.clientWidth > (900/12) * 
       parseInt(document.body.currentStyle.fontSize)?
-      "55em":
+      "80em":
       "auto");
 }
 
