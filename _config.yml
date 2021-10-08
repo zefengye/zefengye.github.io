@@ -1,0 +1,39 @@
+title: Zefeng Ye
+description: Zefeng's Homepage.
+author: Zefeng Ye
+avatar: /logo.png
+email: yezefeng92@gmail.com
+location: Shenzhen, China
+subscribe: false
+skin: daylight
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+paginate: 10
+
+# Uncomment the below line and set the tracking ID for enabling Google Analytics
+# 
+google_analytics: G-3ZHSDZ7X55
+
+# Uncomment the below lines and set the Disqus shortname for enabling Disqus
+# 
+# disqus:
+
+# Jekyll
+# ======
+exclude:
+  - scripts/
+  - README.md
+  - jekyll-theme-hamilton.gemspec
+
+# Jekyll SEO Tag (Optional)
+# =========================
+logo: logo.png
+social:
+  name: Zefeng Ye
+google_site_verification: u4WXQl0Eu66rsQo2kRdCNx
+lang: en
