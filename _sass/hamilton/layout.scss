@@ -669,3 +669,14 @@ figcaption.align-center {
     }
   }
 }
+
+.details,
+.show,
+
+.hide:target {
+  display: none;
+}
+.hide:target + .show,
+.hide:target ~ .details {
+  display: block;
+}
