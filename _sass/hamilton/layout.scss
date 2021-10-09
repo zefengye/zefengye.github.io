@@ -679,3 +679,59 @@ figcaption.align-center {
 .hide:target ~ .details {
   display: block;
 }
+
+input {
+  display: none;
+  visibility: hidden;
+}
+
+label {
+  display: block;
+  padding: 0.0em;
+  text-align: left;
+  border-bottom: 0px solid #CCC;
+  color: rgb(5, 0, 144);
+}
+
+label:hover {
+  color: #000;
+}
+
+label::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: "-";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0px;
+  // background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+
+.expand {
+  height: 480px;
+  overflow: hidden;
+  transition: height 0.5s;
+  // color: rgb(255, 255, 255);
+}
+
+.collapse {
+  height: 480px;
+  overflow: hidden;
+  transition: height 0.5s;
+  // color: rgb(255, 255, 255);
+}
+
+section {
+  padding: 0 -0px;
+}
+
+.toggle:checked+label+.expand {
+  height: 0px;
+}
+
+.toggle:checked+label::before {
+  content: "+";
+}
