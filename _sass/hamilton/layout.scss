@@ -185,7 +185,7 @@
   overflow: hidden;
 
   @include media-query($on-medium) {
-    grid-template-columns: calc(#{$content-width} * 0.18) 1fr;
+    grid-template-columns: calc(#{$content-width} * 0.10) 1fr;
   }
 
   @include media-query($on-small) {
